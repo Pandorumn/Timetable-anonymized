@@ -233,7 +233,6 @@ function monitoring() {
     let currentEventIndex = getCurrentEvent(currentTime);
     setActiveEvent(currentEventIndex);
     calcAndSetCompleteness(currentEventIndex, currentTime);
-    calcAndSetInfo(currentTime);
 }
 
 function getCurrentEvent(currentTime) {
@@ -306,26 +305,4 @@ function calcAndSetCompleteness(k, currentTime) {
         document.querySelector(`#ev${k} .name`).style.background = '';
         document.querySelector(`#ev${k} .remaining-time`).textContent = '';
     }
-}
-
-function calcAndSetInfo(currentTime) {
-    const sleepTime = {
-        h: events[events.length - 2].startHours,
-        m: events[events.length - 2].startMinutes,
-    };
-    let remTime = {
-        h: sleepTime.h - currentTime.getHours(),
-        m: sleepTime.m - currentTime.getMinutes(),
-    };
-    if (remTime.m < 0) {
-        remTime.m += 60;
-        remTime.h--;
-    }
-    // console.log(remTime.h + ' : ' + (remTime.m >= 10 ? remTime.m : '0' + remTime.m));
-    if (remTime.h < 0 || remTime.h >= 15) {
-        timRemBrut.textContent = 'Sleep';
-        return;
-    }
-    timRemBrut.textContent =
-        remTime.h + ' : ' + (remTime.m >= 10 ? remTime.m : '0' + remTime.m);
 }
